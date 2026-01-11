@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need access to your location to track your running route and provide turn-by-turn navigation.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need access to your location to track your running route and provide turn-by-turn navigation.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>We use motion data to improve pace calculations and running metrics.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>We use speech synthesis to provide turn-by-turn voice navigation during your runs.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+		<string>audio</string>
+	</array>
+</dict>
+</plist>

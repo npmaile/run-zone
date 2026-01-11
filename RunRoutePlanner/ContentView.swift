@@ -234,17 +234,17 @@ struct ContentView: View {
                 }
             }
         }
-        .onChange(of: locationManager.location) { newLocation in
+        .onChange(of: locationManager.location) { oldValue, newLocation in
             // Update navigation with current location
             if voiceGuidanceEnabled, let location = newLocation {
                 navigationManager.updateLocation(location)
             }
         }
-        .onChange(of: routePlanner.currentWaypoints) { newWaypoints in
+        .onChange(of: routePlanner.currentWaypoints) { oldValue, newWaypoints in
             // Start navigation when new waypoints are generated
             startNavigationIfNeeded()
         }
-        .onChange(of: voiceGuidanceEnabled) { enabled in
+        .onChange(of: voiceGuidanceEnabled) { oldValue, enabled in
             // Stop navigation if disabled, start if enabled
             if !enabled {
                 navigationManager.stopNavigation()
@@ -252,7 +252,7 @@ struct ContentView: View {
                 startNavigationIfNeeded()
             }
         }
-        .onChange(of: locationManager.currentPace) { newPace in
+        .onChange(of: locationManager.currentPace) { oldValue, newPace in
             // Update pace coaching
             if paceCoachingEnabled, isRunning {
                 navigationManager.updatePace(

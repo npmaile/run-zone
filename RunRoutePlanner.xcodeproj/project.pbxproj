@@ -21,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4B87A0E82F142B810000B221 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B87A0E92F142B930000B221 /* BUILD_FIXES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = BUILD_FIXES.md; sourceTree = "<group>"; };
 		BB0000000000000000000001 /* RunRoutePlannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunRoutePlannerApp.swift; sourceTree = "<group>"; };
 		BB0000000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BB0000000000000000000003 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -52,6 +54,8 @@
 			children = (
 				EE0000000000000000000002 /* RunRoutePlanner */,
 				EE0000000000000000000003 /* Products */,
+				4B87A0E82F142B810000B221 /* Info.plist */,
+				4B87A0E92F142B930000B221 /* BUILD_FIXES.md */,
 			);
 			sourceTree = "<group>";
 		};

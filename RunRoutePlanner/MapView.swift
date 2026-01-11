@@ -22,12 +22,14 @@ struct MapView: UIViewRepresentable {
         mapView.removeOverlays(mapView.overlays)
 
         if route.count > 1 {
-            let polyline = PlannedRoutePolyline(coordinates: route, count: route.count)
+            var routeCoords = route
+            let polyline = PlannedRoutePolyline(coordinates: &routeCoords, count: routeCoords.count)
             mapView.addOverlay(polyline)
         }
 
         if completedPath.count > 1 {
-            let polyline = CompletedPathPolyline(coordinates: completedPath, count: completedPath.count)
+            var pathCoords = completedPath
+            let polyline = CompletedPathPolyline(coordinates: &pathCoords, count: pathCoords.count)
             mapView.addOverlay(polyline)
         }
 
