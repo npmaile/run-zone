@@ -1,6 +1,10 @@
 import SwiftUI
 import MapKit
 
+// Custom polyline types for different route styles
+class PlannedRoutePolyline: MKPolyline {}
+class CompletedPathPolyline: MKPolyline {}
+
 struct MapView: UIViewRepresentable {
     var userLocation: CLLocationCoordinate2D?
     var route: [CLLocationCoordinate2D]
@@ -15,22 +19,18 @@ struct MapView: UIViewRepresentable {
     }
 
     func updateUIView(_ mapView: MKMapView, context: Context) {
-        // Remove existing overlays
         mapView.removeOverlays(mapView.overlays)
 
-        // Add planned route overlay (blue line)
         if route.count > 1 {
-            let polyline = MKPolyline(coordinates: route, count: route.count)
+            let polyline = PlannedRoutePolyline(coordinates: route, count: route.count)
             mapView.addOverlay(polyline)
         }
 
-        // Add completed path overlay (green line)
         if completedPath.count > 1 {
-            let completedPolyline = MKPolyline(coordinates: completedPath, count: completedPath.count)
-            mapView.addOverlay(completedPolyline)
+            let polyline = CompletedPathPolyline(coordinates: completedPath, count: completedPath.count)
+            mapView.addOverlay(polyline)
         }
 
-        // Center map on user location if available
         if let location = userLocation {
             let region = MKCoordinateRegion(
                 center: location,
@@ -53,26 +53,18 @@ struct MapView: UIViewRepresentable {
         }
 
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-            if let polyline = overlay as? MKPolyline {
-                let renderer = MKPolylineRenderer(polyline: polyline)
+            let renderer = MKPolylineRenderer(overlay: overlay)
 
-                // Check if this is the completed path or planned route
-                // We'll use different colors
-                if parent.completedPath.count > 1 &&
-                   polyline.pointCount == parent.completedPath.count {
-                    // Completed path - green
-                    renderer.strokeColor = UIColor.systemGreen.withAlphaComponent(0.8)
-                    renderer.lineWidth = 6
-                } else {
-                    // Planned route - blue
-                    renderer.strokeColor = UIColor.systemBlue.withAlphaComponent(0.6)
-                    renderer.lineWidth = 4
-                    renderer.lineDashPattern = [10, 5] // Dashed line
-                }
-
-                return renderer
+            if overlay is CompletedPathPolyline {
+                renderer.strokeColor = UIColor.systemGreen.withAlphaComponent(0.8)
+                renderer.lineWidth = 6
+            } else if overlay is PlannedRoutePolyline {
+                renderer.strokeColor = UIColor.systemBlue.withAlphaComponent(0.6)
+                renderer.lineWidth = 4
+                renderer.lineDashPattern = [10, 5]
             }
-            return MKOverlayRenderer(overlay: overlay)
+
+            return renderer
         }
     }
 }

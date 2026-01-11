@@ -6,6 +6,8 @@ struct SubscriptionView: View {
     @Binding var isPresented: Bool
     @State private var isPurchasing = false
 
+    private let horizontalPadding: CGFloat = 40
+
     var body: some View {
         ZStack {
             // Background gradient
@@ -56,7 +58,7 @@ struct SubscriptionView: View {
                     FeatureRow(icon: "chart.line.uptrend.xyaxis", text: "Detailed run statistics")
                     FeatureRow(icon: "icloud.fill", text: "Cloud sync across devices")
                 }
-                .padding(.horizontal, 40)
+                .padding(.horizontal, horizontalPadding)
 
                 Spacer()
 
@@ -73,20 +75,7 @@ struct SubscriptionView: View {
                                 .foregroundColor(.white.opacity(0.9))
                         }
 
-                        Button(action: {
-                            Task {
-                                isPurchasing = true
-                                do {
-                                    try await subscriptionManager.purchase()
-                                    if subscriptionManager.isSubscribed {
-                                        isPresented = false
-                                    }
-                                } catch {
-                                    print("Purchase failed: \(error)")
-                                }
-                                isPurchasing = false
-                            }
-                        }) {
+                        Button(action: handlePurchase) {
                             HStack {
                                 if isPurchasing {
                                     ProgressView()
@@ -103,32 +92,23 @@ struct SubscriptionView: View {
                             .cornerRadius(15)
                         }
                         .disabled(isPurchasing)
-                        .padding(.horizontal, 40)
+                        .padding(.horizontal, horizontalPadding)
                     } else {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
                     }
 
                     // Restore purchases button
-                    Button(action: {
-                        Task {
-                            await subscriptionManager.restorePurchases()
-                            if subscriptionManager.isSubscribed {
-                                isPresented = false
-                            }
-                        }
-                    }) {
-                        Text("Restore Purchases")
-                            .font(.footnote)
-                            .foregroundColor(.white.opacity(0.8))
-                    }
+                    Button("Restore Purchases", action: handleRestore)
+                        .font(.footnote)
+                        .foregroundColor(.white.opacity(0.8))
 
                     // Terms and privacy
                     Text("Auto-renewable subscription. Cancel anytime in Settings.")
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.7))
                         .multilineTextAlignment(.center)
-                        .padding(.horizontal, 40)
+                        .padding(.horizontal, horizontalPadding)
                 }
                 .padding(.bottom, 30)
             }
@@ -139,6 +119,32 @@ struct SubscriptionView: View {
             }
         } message: {
             Text(subscriptionManager.purchaseError ?? "")
+        }
+    }
+
+    private func handlePurchase() {
+        Task {
+            isPurchasing = true
+            do {
+                try await subscriptionManager.purchase()
+                dismissIfSubscribed()
+            } catch {
+                print("Purchase failed: \(error)")
+            }
+            isPurchasing = false
+        }
+    }
+
+    private func handleRestore() {
+        Task {
+            await subscriptionManager.restorePurchases()
+            dismissIfSubscribed()
+        }
+    }
+
+    private func dismissIfSubscribed() {
+        if subscriptionManager.isSubscribed {
+            isPresented = false
         }
     }
 }
