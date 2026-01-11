@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B87A0EB2F1430060000B221 /* PAYMENTS_REMOVED.md in Resources */ = {isa = PBXBuildFile; fileRef = 4B87A0EA2F1430060000B221 /* PAYMENTS_REMOVED.md */; };
+		4B87A0ED2F1430D40000B221 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B87A0EC2F1430D40000B221 /* SettingsView.swift */; };
+		4B87A0EF2F1431210000B221 /* SETTINGS_FEATURE.md in Resources */ = {isa = PBXBuildFile; fileRef = 4B87A0EE2F1431210000B221 /* SETTINGS_FEATURE.md */; };
 		AA0000000000000000000001 /* RunRoutePlannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000001 /* RunRoutePlannerApp.swift */; };
 		AA0000000000000000000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000002 /* ContentView.swift */; };
 		AA0000000000000000000003 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000003 /* LocationManager.swift */; };
@@ -23,6 +26,12 @@
 /* Begin PBXFileReference section */
 		4B87A0E82F142B810000B221 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B87A0E92F142B930000B221 /* BUILD_FIXES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = BUILD_FIXES.md; sourceTree = "<group>"; };
+		4B87A0EA2F1430060000B221 /* PAYMENTS_REMOVED.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PAYMENTS_REMOVED.md; sourceTree = "<group>"; };
+		4B87A0EC2F1430D40000B221 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		4B87A0EE2F1431210000B221 /* SETTINGS_FEATURE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SETTINGS_FEATURE.md; sourceTree = "<group>"; };
+		4B87A0F02F1432210000B221 /* USABILITY_IMPROVEMENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = USABILITY_IMPROVEMENTS.md; sourceTree = "<group>"; };
+		4B87A0F12F14326C0000B221 /* UsabilityComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsabilityComponents.swift; sourceTree = "<group>"; };
+		4B87A0F22F1432C40000B221 /* IMPROVEMENTS_COMPLETE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IMPROVEMENTS_COMPLETE.md; sourceTree = "<group>"; };
 		BB0000000000000000000001 /* RunRoutePlannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunRoutePlannerApp.swift; sourceTree = "<group>"; };
 		BB0000000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BB0000000000000000000003 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -56,6 +65,9 @@
 				EE0000000000000000000003 /* Products */,
 				4B87A0E82F142B810000B221 /* Info.plist */,
 				4B87A0E92F142B930000B221 /* BUILD_FIXES.md */,
+				4B87A0F02F1432210000B221 /* USABILITY_IMPROVEMENTS.md */,
+				4B87A0F12F14326C0000B221 /* UsabilityComponents.swift */,
+				4B87A0F22F1432C40000B221 /* IMPROVEMENTS_COMPLETE.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,6 +86,9 @@
 				BB0000000000000000000006 /* Assets.xcassets */,
 				BB0000000000000000000010 /* Configuration.storekit */,
 				BB0000000000000000000007 /* Info.plist */,
+				4B87A0EA2F1430060000B221 /* PAYMENTS_REMOVED.md */,
+				4B87A0EC2F1430D40000B221 /* SettingsView.swift */,
+				4B87A0EE2F1431210000B221 /* SETTINGS_FEATURE.md */,
 			);
 			path = RunRoutePlanner;
 			sourceTree = "<group>";
@@ -114,7 +129,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					FF0000000000000000000001 = {
 						CreatedOnToolsVersion = 15.0;
@@ -144,7 +159,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B87A0EB2F1430060000B221 /* PAYMENTS_REMOVED.md in Resources */,
 				AA0000000000000000000006 /* Assets.xcassets in Resources */,
+				4B87A0EF2F1431210000B221 /* SETTINGS_FEATURE.md in Resources */,
 				AA0000000000000000000009 /* Configuration.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -161,6 +178,7 @@
 				AA0000000000000000000003 /* LocationManager.swift in Sources */,
 				AA0000000000000000000004 /* RoutePlanner.swift in Sources */,
 				AA0000000000000000000005 /* MapView.swift in Sources */,
+				4B87A0ED2F1430D40000B221 /* SettingsView.swift in Sources */,
 				AA0000000000000000000007 /* SubscriptionManager.swift in Sources */,
 				AA0000000000000000000008 /* SubscriptionView.swift in Sources */,
 				AA0000000000000000000010 /* Constants.swift in Sources */,
@@ -229,6 +247,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -285,6 +304,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};

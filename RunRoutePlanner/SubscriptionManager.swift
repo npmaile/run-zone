@@ -1,14 +1,13 @@
 import Foundation
 import StoreKit
 
-@MainActor
 class SubscriptionManager: ObservableObject {
     @Published var isSubscribed: Bool = false
     @Published var products: [Product] = []
     @Published var purchaseError: String?
 
     private let productID = AppConstants.Subscription.productID
-    private var updateListenerTask: Task<Void, Error>?
+    private var updateListenerTask: Task<Void, Never>?
 
     init() {
         updateListenerTask = listenForTransactions()
@@ -24,6 +23,7 @@ class SubscriptionManager: ObservableObject {
     }
 
     // Load available subscription products
+    @MainActor
     func loadProducts() async {
         do {
             let storeProducts = try await Product.products(for: [productID])
@@ -34,6 +34,7 @@ class SubscriptionManager: ObservableObject {
     }
 
     // Purchase subscription
+    @MainActor
     func purchase() async throws {
         guard let product = products.first else {
             throw SubscriptionError.productNotFound
@@ -64,6 +65,7 @@ class SubscriptionManager: ObservableObject {
     }
 
     // Restore purchases
+    @MainActor
     func restorePurchases() async {
         do {
             try await AppStore.sync()
@@ -74,6 +76,7 @@ class SubscriptionManager: ObservableObject {
     }
 
     // Check current subscription status
+    @MainActor
     func updateSubscriptionStatus() async {
         var isActive = false
 
@@ -94,13 +97,17 @@ class SubscriptionManager: ObservableObject {
     }
 
     // Listen for transaction updates
-    private func listenForTransactions() -> Task<Void, Error> {
-        return Task.detached {
+    private func listenForTransactions() -> Task<Void, Never> {
+        return Task {
             for await result in Transaction.updates {
                 do {
-                    let transaction = try self.checkVerified(result)
+                    let transaction = try checkVerified(result)
                     await transaction.finish()
-                    await self.updateSubscriptionStatus()
+                    await MainActor.run {
+                        Task {
+                            await self.updateSubscriptionStatus()
+                        }
+                    }
                 } catch {
                     print("Transaction failed verification: \(error)")
                 }

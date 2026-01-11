@@ -10,116 +10,149 @@ struct SubscriptionView: View {
 
     var body: some View {
         ZStack {
-            // Background gradient
-            LinearGradient(
-                gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.purple.opacity(0.8)]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
-
+            backgroundGradient
+            
             VStack(spacing: 30) {
-                // Close button
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        isPresented = false
-                    }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.title)
-                            .foregroundColor(.white.opacity(0.8))
-                    }
-                    .padding()
-                }
-
+                closeButton
                 Spacer()
-
-                // App icon and title
-                VStack(spacing: 16) {
-                    Image(systemName: "figure.run.circle.fill")
-                        .font(.system(size: 80))
-                        .foregroundColor(.white)
-
-                    Text("Run Route Planner")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-
-                    Text("Premium")
-                        .font(.title2)
-                        .foregroundColor(.white.opacity(0.9))
-                }
-
-                // Features list
-                VStack(alignment: .leading, spacing: 20) {
-                    FeatureRow(icon: "map.fill", text: "Dynamic route planning while running")
-                    FeatureRow(icon: "location.fill", text: "Real-time GPS tracking")
-                    FeatureRow(icon: "infinity", text: "Unlimited routes and distances")
-                    FeatureRow(icon: "chart.line.uptrend.xyaxis", text: "Detailed run statistics")
-                    FeatureRow(icon: "icloud.fill", text: "Cloud sync across devices")
-                }
-                .padding(.horizontal, horizontalPadding)
-
+                headerSection
+                featuresList
                 Spacer()
-
-                // Pricing and subscribe button
-                VStack(spacing: 20) {
-                    if let product = subscriptionManager.products.first {
-                        VStack(spacing: 8) {
-                            Text(product.displayPrice)
-                                .font(.system(size: 48, weight: .bold))
-                                .foregroundColor(.white)
-
-                            Text("per month")
-                                .font(.title3)
-                                .foregroundColor(.white.opacity(0.9))
-                        }
-
-                        Button(action: handlePurchase) {
-                            HStack {
-                                if isPurchasing {
-                                    ProgressView()
-                                        .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                                } else {
-                                    Text("Start Free Trial")
-                                        .fontWeight(.semibold)
-                                }
-                            }
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.white)
-                            .foregroundColor(.blue)
-                            .cornerRadius(15)
-                        }
-                        .disabled(isPurchasing)
-                        .padding(.horizontal, horizontalPadding)
-                    } else {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                    }
-
-                    // Restore purchases button
-                    Button("Restore Purchases", action: handleRestore)
-                        .font(.footnote)
-                        .foregroundColor(.white.opacity(0.8))
-
-                    // Terms and privacy
-                    Text("Auto-renewable subscription. Cancel anytime in Settings.")
-                        .font(.caption)
-                        .foregroundColor(.white.opacity(0.7))
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, horizontalPadding)
-                }
-                .padding(.bottom, 30)
+                pricingSection
             }
         }
-        .alert("Error", isPresented: .constant(subscriptionManager.purchaseError != nil)) {
+        .alert("Error", isPresented: errorBinding) {
             Button("OK") {
                 subscriptionManager.purchaseError = nil
             }
         } message: {
             Text(subscriptionManager.purchaseError ?? "")
         }
+    }
+    
+    // MARK: - View Components
+    
+    private var backgroundGradient: some View {
+        LinearGradient(
+            gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.purple.opacity(0.8)]),
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+        .ignoresSafeArea()
+    }
+    
+    private var closeButton: some View {
+        HStack {
+            Spacer()
+            Button(action: { isPresented = false }) {
+                Image(systemName: "xmark.circle.fill")
+                    .font(.title)
+                    .foregroundColor(.white.opacity(0.8))
+            }
+            .padding()
+        }
+    }
+    
+    private var headerSection: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "figure.run.circle.fill")
+                .font(.system(size: 80))
+                .foregroundColor(.white)
+            
+            Text("Run Route Planner")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+            
+            Text("Premium")
+                .font(.title2)
+                .foregroundColor(.white.opacity(0.9))
+        }
+    }
+    
+    private var featuresList: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            FeatureRow(icon: "map.fill", text: "Dynamic route planning while running")
+            FeatureRow(icon: "location.fill", text: "Real-time GPS tracking")
+            FeatureRow(icon: "infinity", text: "Unlimited routes and distances")
+            FeatureRow(icon: "chart.line.uptrend.xyaxis", text: "Detailed run statistics")
+            FeatureRow(icon: "icloud.fill", text: "Cloud sync across devices")
+        }
+        .padding(.horizontal, horizontalPadding)
+    }
+    
+    private var pricingSection: some View {
+        VStack(spacing: 20) {
+            if let product = subscriptionManager.products.first {
+                productPricing(product)
+                subscribeButton
+            } else {
+                loadingIndicator
+            }
+            
+            restoreButton
+            termsText
+        }
+        .padding(.bottom, 30)
+    }
+    
+    private func productPricing(_ product: Product) -> some View {
+        VStack(spacing: 8) {
+            Text(product.displayPrice)
+                .font(.system(size: 48, weight: .bold))
+                .foregroundColor(.white)
+            
+            Text("per month")
+                .font(.title3)
+                .foregroundColor(.white.opacity(0.9))
+        }
+    }
+    
+    private var subscribeButton: some View {
+        Button(action: handlePurchase) {
+            HStack {
+                if isPurchasing {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                } else {
+                    Text("Start Free Trial")
+                        .fontWeight(.semibold)
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(Color.white)
+            .foregroundColor(.blue)
+            .cornerRadius(15)
+        }
+        .disabled(isPurchasing)
+        .padding(.horizontal, horizontalPadding)
+    }
+    
+    private var loadingIndicator: some View {
+        ProgressView()
+            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+    }
+    
+    private var restoreButton: some View {
+        Button("Restore Purchases", action: handleRestore)
+            .font(.footnote)
+            .foregroundColor(.white.opacity(0.8))
+    }
+    
+    private var termsText: some View {
+        Text("Auto-renewable subscription. Cancel anytime in Settings.")
+            .font(.caption)
+            .foregroundColor(.white.opacity(0.7))
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, horizontalPadding)
+    }
+    
+    private var errorBinding: Binding<Bool> {
+        Binding(
+            get: { subscriptionManager.purchaseError != nil },
+            set: { if !$0 { subscriptionManager.purchaseError = nil } }
+        )
     }
 
     private func handlePurchase() {

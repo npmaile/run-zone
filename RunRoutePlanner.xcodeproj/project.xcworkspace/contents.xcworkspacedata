@@ -4,4 +4,22 @@
    <FileRef
       location = "self:">
    </FileRef>
+   <FileRef
+      location = "group:APP_OVERVIEW.md">
+   </FileRef>
+   <FileRef
+      location = "group:MERGE_COMPLETE.md">
+   </FileRef>
+   <FileRef
+      location = "group:BUILD_AND_RUN.md">
+   </FileRef>
+   <FileRef
+      location = "group:PROJECT_STRUCTURE.md">
+   </FileRef>
+   <FileRef
+      location = "group:FINAL_SUMMARY.md">
+   </FileRef>
+   <FileRef
+      location = "group:VERIFICATION.md">
+   </FileRef>
 </Workspace>
