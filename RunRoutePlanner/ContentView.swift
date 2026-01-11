@@ -6,12 +6,14 @@ struct ContentView: View {
     @StateObject private var routePlanner = RoutePlanner()
     @StateObject private var subscriptionManager = SubscriptionManager()
     @StateObject private var navigationManager = NavigationManager()
+    @StateObject private var watchConnectivity = WatchConnectivityManager.shared
     @State private var isRunning = false
     @State private var targetDistance: Double = AppConstants.Routing.defaultDistance
     @State private var targetTime: Double = AppConstants.Pace.defaultTimeMinutes
     @State private var showSubscription = false
     @State private var voiceGuidanceEnabled = true
     @State private var paceCoachingEnabled = true
+    @State private var watchSyncTimer: Timer?
 
     var body: some View {
         ZStack {
@@ -261,6 +263,18 @@ struct ContentView: View {
                 )
             }
         }
+        .onChange(of: targetDistance) { _ in
+            // Sync goal changes with watch
+            if !isRunning {
+                syncWithWatch()
+            }
+        }
+        .onChange(of: targetTime) { _ in
+            // Sync goal changes with watch
+            if !isRunning {
+                syncWithWatch()
+            }
+        }
         .fullScreenCover(isPresented: $showSubscription) {
             SubscriptionView(isPresented: $showSubscription)
         }
@@ -284,6 +298,9 @@ struct ContentView: View {
         if paceCoachingEnabled {
             navigationManager.setPaceGoal(targetDistance: targetDistance, targetTime: targetTime)
         }
+
+        // Start syncing with Apple Watch
+        startWatchSync()
     }
 
     private func startNavigationIfNeeded() {
@@ -299,11 +316,56 @@ struct ContentView: View {
         routePlanner.stopPlanning()
         navigationManager.stopNavigation()
 
+        // Stop watch sync
+        stopWatchSync()
+
         // Show summary or reset
         DispatchQueue.main.asyncAfter(deadline: .now() + AppConstants.UI.resetDelay) {
             locationManager.reset()
             routePlanner.reset()
         }
+    }
+
+    /// Starts periodic sync with Apple Watch
+    private func startWatchSync() {
+        // Send initial state
+        syncWithWatch()
+
+        // Set up timer to sync every 2 seconds
+        watchSyncTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+            self?.syncWithWatch()
+        }
+    }
+
+    /// Stops watch sync timer
+    private func stopWatchSync() {
+        watchSyncTimer?.invalidate()
+        watchSyncTimer = nil
+
+        // Send final state
+        syncWithWatch()
+    }
+
+    /// Syncs current run state with Apple Watch
+    private func syncWithWatch() {
+        let paceStatusString: String
+        switch navigationManager.paceStatus {
+        case .tooSlow: paceStatusString = "tooSlow"
+        case .slightlySlow: paceStatusString = "slightlySlow"
+        case .onPace: paceStatusString = "onPace"
+        case .slightlyFast: paceStatusString = "slightlyFast"
+        case .tooFast: paceStatusString = "tooFast"
+        }
+
+        watchConnectivity.sendRunState(
+            isRunning: isRunning,
+            distance: locationManager.totalDistance,
+            elapsedTime: locationManager.elapsedTime,
+            currentPace: locationManager.currentPace,
+            paceStatus: paceStatusString,
+            targetDistance: targetDistance,
+            targetTime: targetTime
+        )
     }
 
     /// Formats time in minutes to human-readable string
