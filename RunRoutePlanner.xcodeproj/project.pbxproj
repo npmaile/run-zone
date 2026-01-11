@@ -13,6 +13,9 @@
 		AA0000000000000000000004 /* RoutePlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000004 /* RoutePlanner.swift */; };
 		AA0000000000000000000005 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000005 /* MapView.swift */; };
 		AA0000000000000000000006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000006 /* Assets.xcassets */; };
+		AA0000000000000000000007 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000008 /* SubscriptionManager.swift */; };
+		AA0000000000000000000008 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000009 /* SubscriptionView.swift */; };
+		AA0000000000000000000009 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000010 /* Configuration.storekit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +26,9 @@
 		BB0000000000000000000005 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BB0000000000000000000006 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB0000000000000000000007 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BB0000000000000000000008 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
+		BB0000000000000000000009 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
+		BB0000000000000000000010 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		CC0000000000000000000001 /* RunRoutePlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunRoutePlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -53,7 +59,10 @@
 				BB0000000000000000000003 /* LocationManager.swift */,
 				BB0000000000000000000004 /* RoutePlanner.swift */,
 				BB0000000000000000000005 /* MapView.swift */,
+				BB0000000000000000000008 /* SubscriptionManager.swift */,
+				BB0000000000000000000009 /* SubscriptionView.swift */,
 				BB0000000000000000000006 /* Assets.xcassets */,
+				BB0000000000000000000010 /* Configuration.storekit */,
 				BB0000000000000000000007 /* Info.plist */,
 			);
 			path = RunRoutePlanner;
@@ -126,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA0000000000000000000006 /* Assets.xcassets in Resources */,
+				AA0000000000000000000009 /* Configuration.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +151,8 @@
 				AA0000000000000000000003 /* LocationManager.swift in Sources */,
 				AA0000000000000000000004 /* RoutePlanner.swift in Sources */,
 				AA0000000000000000000005 /* MapView.swift in Sources */,
+				AA0000000000000000000007 /* SubscriptionManager.swift in Sources */,
+				AA0000000000000000000008 /* SubscriptionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

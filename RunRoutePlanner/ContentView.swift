@@ -4,8 +4,10 @@ import MapKit
 struct ContentView: View {
     @StateObject private var locationManager = LocationManager()
     @StateObject private var routePlanner = RoutePlanner()
+    @StateObject private var subscriptionManager = SubscriptionManager()
     @State private var isRunning = false
     @State private var targetDistance: Double = 5.0 // km
+    @State private var showSubscription = false
 
     var body: some View {
         ZStack {
@@ -40,6 +42,19 @@ struct ContentView: View {
                             .font(.title2)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
+                    }
+
+                    // Subscription badge
+                    if !subscriptionManager.isSubscribed {
+                        Button(action: {
+                            showSubscription = true
+                        }) {
+                            Image(systemName: "crown.fill")
+                                .foregroundColor(.yellow)
+                                .padding(8)
+                                .background(Color.white.opacity(0.3))
+                                .clipShape(Circle())
+                        }
                     }
                 }
                 .padding()
@@ -117,10 +132,26 @@ struct ContentView: View {
         }
         .onAppear {
             locationManager.requestPermission()
+
+            // Show subscription paywall if not subscribed
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                if !subscriptionManager.isSubscribed {
+                    showSubscription = true
+                }
+            }
+        }
+        .fullScreenCover(isPresented: $showSubscription) {
+            SubscriptionView(isPresented: $showSubscription)
         }
     }
 
     private func startRun() {
+        // Check subscription before starting
+        guard subscriptionManager.isSubscribed else {
+            showSubscription = true
+            return
+        }
+
         isRunning = true
         locationManager.startTracking()
         routePlanner.startPlanning(

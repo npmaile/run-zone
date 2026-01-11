@@ -10,6 +10,19 @@ A native iPhone app that dynamically plans running routes in real-time while you
 - **Customizable Distance**: Select your target distance from 1-50 km
 - **Live Statistics**: View distance covered and remaining distance in real-time
 - **Background Location**: Continues tracking even when the app is in the background
+- **Premium Subscription**: Access all features for just $0.99/month with a 1-week free trial
+
+## Subscription
+
+Run Route Planner is a premium app with a simple, affordable subscription model:
+
+- **Price**: $0.99 per month (approximately $1/month)
+- **Free Trial**: 7-day free trial included
+- **Features**: Full access to all app features including unlimited routes, cloud sync, and advanced statistics
+- **Management**: Auto-renewable subscription that can be cancelled anytime in your Apple ID settings
+- **StoreKit 2**: Built with Apple's latest in-app purchase framework for security and reliability
+
+The app uses a paywall system that presents the subscription offer when you first launch the app. You can also access subscription options by tapping the crown icon in the top right corner of the main screen.
 
 ## How It Works
 
@@ -27,6 +40,7 @@ A native iPhone app that dynamically plans running routes in real-time while you
 - **MapKit**: Apple's mapping framework for route visualization
 - **CoreLocation**: High-accuracy GPS tracking
 - **Combine**: Reactive programming for real-time updates
+- **StoreKit 2**: Apple's in-app purchase framework for subscription management
 
 ### Key Components
 
@@ -34,6 +48,9 @@ A native iPhone app that dynamically plans running routes in real-time while you
 - `RoutePlanner.swift`: Generates dynamic circular routes
 - `MapView.swift`: Renders the map with route overlays
 - `ContentView.swift`: Main UI with controls and statistics
+- `SubscriptionManager.swift`: Manages StoreKit subscriptions and purchases
+- `SubscriptionView.swift`: Premium subscription paywall UI
+- `Configuration.storekit`: StoreKit configuration for local testing
 
 ### Route Algorithm
 
