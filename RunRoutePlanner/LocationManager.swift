@@ -10,10 +10,14 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var runPath: [CLLocationCoordinate2D] = []
     @Published var authorizationStatus: CLAuthorizationStatus?
     @Published var locationError: String?
+    @Published var elapsedTime: TimeInterval = 0
+    @Published var currentPace: Double = 0 // minutes per kilometer
 
     // MARK: - Private Properties
     private let manager = CLLocationManager()
     private var lastLocation: CLLocation?
+    private var startTime: Date?
+    private var paceTimer: Timer?
 
     // MARK: - Initialization
 
@@ -33,11 +37,22 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     func startTracking() {
         manager.startUpdatingLocation()
         reset()
+        startTime = Date()
+
+        // Start timer to update elapsed time
+        paceTimer = Timer.scheduledTimer(
+            withTimeInterval: AppConstants.Pace.paceUpdateInterval,
+            repeats: true
+        ) { [weak self] _ in
+            self?.updatePaceMetrics()
+        }
     }
 
     /// Stops tracking the user's location
     func stopTracking() {
         manager.stopUpdatingLocation()
+        paceTimer?.invalidate()
+        paceTimer = nil
     }
 
     /// Resets all tracking data
@@ -46,6 +61,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         totalDistance = 0
         lastLocation = nil
         locationError = nil
+        elapsedTime = 0
+        currentPace = 0
+        startTime = nil
+        paceTimer?.invalidate()
+        paceTimer = nil
     }
 
     // MARK: - Private Methods
@@ -55,6 +75,24 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.activityType = .fitness
         manager.distanceFilter = AppConstants.Location.distanceFilter
+    }
+
+    /// Updates pace metrics (elapsed time and current pace)
+    private func updatePaceMetrics() {
+        guard let start = startTime else { return }
+
+        // Update elapsed time
+        elapsedTime = Date().timeIntervalSince(start)
+
+        // Calculate current pace (min/km)
+        // Only calculate if we've covered minimum distance
+        if totalDistance >= AppConstants.Pace.minDistanceForPace {
+            let distanceKm = totalDistance / 1000.0
+            let timeMinutes = elapsedTime / 60.0
+            currentPace = timeMinutes / distanceKm
+        } else {
+            currentPace = 0
+        }
     }
 
     // MARK: - CLLocationManagerDelegate

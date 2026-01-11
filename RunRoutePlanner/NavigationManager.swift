@@ -4,15 +4,30 @@ import AVFoundation
 import Combine
 
 /// Manages turn-by-turn voice navigation for following planned routes
+/// Also provides pace coaching to help runners hit their time goals
 class NavigationManager: NSObject, ObservableObject {
     @Published var currentWaypointIndex: Int = 0
     @Published var distanceToNextWaypoint: Double = 0
     @Published var isNavigating: Bool = false
+    @Published var paceStatus: PaceStatus = .onPace
 
     private var waypoints: [CLLocationCoordinate2D] = []
     private var speechSynthesizer = AVSpeechSynthesizer()
     private var hasGivenInstruction = false
     private var lastInstructionDistance: Double = 0
+
+    // Pace coaching
+    private var targetPace: Double = 0 // minutes per kilometer
+    private var lastPaceCoachingTime: Date?
+    private var paceCoachingTimer: Timer?
+
+    enum PaceStatus {
+        case tooSlow
+        case slightlySlow
+        case onPace
+        case slightlyFast
+        case tooFast
+    }
 
     /// Starts navigation with the given route waypoints
     func startNavigation(waypoints: [CLLocationCoordinate2D]) {
@@ -32,6 +47,94 @@ class NavigationManager: NSObject, ObservableObject {
         waypoints = []
         currentWaypointIndex = 0
         speechSynthesizer.stopSpeaking(at: .immediate)
+        paceCoachingTimer?.invalidate()
+        paceCoachingTimer = nil
+    }
+
+    /// Sets the target pace for coaching
+    /// - Parameters:
+    ///   - targetDistance: Target distance in kilometers
+    ///   - targetTime: Target time in minutes
+    func setPaceGoal(targetDistance: Double, targetTime: Double) {
+        guard targetDistance > 0, targetTime > 0 else { return }
+
+        // Calculate target pace (min/km)
+        targetPace = targetTime / targetDistance
+
+        // Start pace coaching timer
+        paceCoachingTimer?.invalidate()
+        paceCoachingTimer = Timer.scheduledTimer(
+            withTimeInterval: AppConstants.Pace.paceCheckInterval,
+            repeats: true
+        ) { [weak self] _ in
+            // Timer just marks time, actual coaching happens in updatePace
+        }
+    }
+
+    /// Updates pace coaching based on current pace
+    /// - Parameters:
+    ///   - currentPace: Current pace in minutes per kilometer
+    ///   - elapsedTime: Time elapsed since start in seconds
+    func updatePace(currentPace: Double, elapsedTime: TimeInterval) {
+        guard targetPace > 0, currentPace > 0 else {
+            paceStatus = .onPace
+            return
+        }
+
+        // Calculate percentage difference from target
+        let paceDifference = (currentPace - targetPace) / targetPace
+
+        // Update pace status
+        if paceDifference > AppConstants.Pace.moderatelySlowThreshold {
+            paceStatus = .tooSlow
+        } else if paceDifference > AppConstants.Pace.slightlySlowThreshold {
+            paceStatus = .slightlySlow
+        } else if paceDifference < -AppConstants.Pace.moderatelyFastThreshold {
+            paceStatus = .tooFast
+        } else if paceDifference < -AppConstants.Pace.slightlyFastThreshold {
+            paceStatus = .slightlyFast
+        } else {
+            paceStatus = .onPace
+        }
+
+        // Give voice coaching if needed
+        givePaceCoaching(paceDifference: paceDifference, elapsedTime: elapsedTime)
+    }
+
+    /// Gives voice coaching about pace if appropriate
+    private func givePaceCoaching(paceDifference: Double, elapsedTime: TimeInterval) {
+        // Don't coach too early in the run
+        guard elapsedTime > 120 else { return } // Wait 2 minutes
+
+        // Check if we need to wait before next coaching
+        if let lastCoaching = lastPaceCoachingTime {
+            let timeSinceLastCoaching = Date().timeIntervalSince(lastCoaching)
+            guard timeSinceLastCoaching >= AppConstants.Pace.minTimeBetweenCoaching else {
+                return
+            }
+        }
+
+        // Only coach if significantly off pace
+        guard abs(paceDifference) > AppConstants.Pace.paceTolerancePercent else {
+            return
+        }
+
+        var message: String?
+
+        if paceDifference > AppConstants.Pace.moderatelySlowThreshold {
+            message = "You're running significantly slow. Try to pick up the pace to hit your goal."
+        } else if paceDifference > AppConstants.Pace.slightlySlowThreshold {
+            message = "You're running a bit slow. Speed up slightly to stay on track."
+        } else if paceDifference < -AppConstants.Pace.moderatelyFastThreshold {
+            message = "You're running significantly fast. Slow down to conserve energy."
+        } else if paceDifference < -AppConstants.Pace.slightlyFastThreshold {
+            message = "You're running a bit fast. You can slow down slightly."
+        }
+
+        if let message = message {
+            speakInstruction(message)
+            lastPaceCoachingTime = Date()
+        }
     }
 
     /// Updates navigation based on current location

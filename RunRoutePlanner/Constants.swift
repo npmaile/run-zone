@@ -61,4 +61,28 @@ enum AppConstants {
         static let speechRate: Float = 0.5 // 0.0 (slow) to 1.0 (fast)
         static let speechVolume: Float = 1.0 // 0.0 to 1.0
     }
+
+    // MARK: - Pace Tracking
+    enum Pace {
+        // Time goals
+        static let minTimeMinutes = 5.0 // minimum time goal in minutes
+        static let maxTimeMinutes = 300.0 // maximum time goal in minutes (5 hours)
+        static let defaultTimeMinutes = 30.0 // default time goal in minutes
+        static let timeStepMinutes = 5.0 // increment/decrement step for time
+
+        // Pace calculation
+        static let paceUpdateInterval: TimeInterval = 10.0 // how often to recalculate pace
+        static let minDistanceForPace = 100.0 // meters - minimum distance before calculating pace
+
+        // Pace coaching thresholds
+        static let paceTolerancePercent = 0.10 // 10% tolerance before coaching
+        static let paceCheckInterval: TimeInterval = 60.0 // check pace every minute
+        static let minTimeBetweenCoaching: TimeInterval = 120.0 // wait 2 minutes between coaching messages
+
+        // Pace status thresholds (percentage difference from target)
+        static let slightlySlowThreshold = 0.05 // 5% slower
+        static let moderatelySlowThreshold = 0.15 // 15% slower
+        static let slightlyFastThreshold = 0.05 // 5% faster
+        static let moderatelyFastThreshold = 0.15 // 15% faster
+    }
 }
