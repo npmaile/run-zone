@@ -43,4 +43,22 @@ enum AppConstants {
     enum Subscription {
         static let productID = "com.runrouteplanner.monthly_subscription"
     }
+
+    // MARK: - Navigation
+    enum Navigation {
+        // Distance thresholds
+        static let waypointReachedThreshold = 20.0 // meters - when to advance to next waypoint
+        static let instructionDistance = 50.0 // meters - when to give turn instruction
+        static let instructionRepeatThreshold = 30.0 // meters - minimum distance change to repeat instruction
+
+        // Turn angle thresholds (in degrees)
+        static let straightAngleThreshold = 20.0 // consider it straight if within this angle
+        static let slightTurnThreshold = 45.0 // slight turn threshold
+        static let sharpTurnThreshold = 120.0 // sharp turn threshold
+        static let uTurnAngleThreshold = 30.0 // degrees from 180 to consider it a U-turn
+
+        // Speech settings
+        static let speechRate: Float = 0.5 // 0.0 (slow) to 1.0 (fast)
+        static let speechVolume: Float = 1.0 // 0.0 to 1.0
+    }
 }

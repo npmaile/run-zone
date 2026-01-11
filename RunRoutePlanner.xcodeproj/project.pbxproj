@@ -17,6 +17,7 @@
 		AA0000000000000000000008 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000009 /* SubscriptionView.swift */; };
 		AA0000000000000000000009 /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000010 /* Configuration.storekit */; };
 		AA0000000000000000000010 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000011 /* Constants.swift */; };
+		AA0000000000000000000011 /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000012 /* NavigationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		BB0000000000000000000009 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
 		BB0000000000000000000010 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		BB0000000000000000000011 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BB0000000000000000000012 /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 		CC0000000000000000000001 /* RunRoutePlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunRoutePlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -64,6 +66,7 @@
 				BB0000000000000000000008 /* SubscriptionManager.swift */,
 				BB0000000000000000000009 /* SubscriptionView.swift */,
 				BB0000000000000000000011 /* Constants.swift */,
+				BB0000000000000000000012 /* NavigationManager.swift */,
 				BB0000000000000000000006 /* Assets.xcassets */,
 				BB0000000000000000000010 /* Configuration.storekit */,
 				BB0000000000000000000007 /* Info.plist */,
@@ -157,6 +160,7 @@
 				AA0000000000000000000007 /* SubscriptionManager.swift in Sources */,
 				AA0000000000000000000008 /* SubscriptionView.swift in Sources */,
 				AA0000000000000000000010 /* Constants.swift in Sources */,
+				AA0000000000000000000011 /* NavigationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

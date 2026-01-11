@@ -8,6 +8,7 @@ import Combine
 class RoutePlanner: ObservableObject {
     // MARK: - Published Properties
     @Published var currentRoute: [CLLocationCoordinate2D] = []
+    @Published var currentWaypoints: [CLLocationCoordinate2D] = []
     @Published var isLoadingRoute = false
     @Published var routeError: String?
 
@@ -52,6 +53,7 @@ class RoutePlanner: ObservableObject {
     /// Resets all route planning state
     func reset() {
         currentRoute = []
+        currentWaypoints = []
         startLocation = nil
         targetDistance = 0
         timer?.invalidate()
@@ -71,6 +73,7 @@ class RoutePlanner: ObservableObject {
             await MainActor.run { isLoadingRoute = true }
 
             let waypoints = generateWaypoints(center: location, targetDistance: targetDistance)
+            await MainActor.run { currentWaypoints = waypoints }
 
             if let routeCoordinates = await fetchDirectionsRoute(waypoints: waypoints) {
                 await updateRoute(routeCoordinates, error: nil)

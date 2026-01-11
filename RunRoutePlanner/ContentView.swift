@@ -5,9 +5,11 @@ struct ContentView: View {
     @StateObject private var locationManager = LocationManager()
     @StateObject private var routePlanner = RoutePlanner()
     @StateObject private var subscriptionManager = SubscriptionManager()
+    @StateObject private var navigationManager = NavigationManager()
     @State private var isRunning = false
     @State private var targetDistance: Double = AppConstants.Routing.defaultDistance
     @State private var showSubscription = false
+    @State private var voiceGuidanceEnabled = true
 
     var body: some View {
         ZStack {
@@ -91,6 +93,16 @@ struct ContentView: View {
                                         .font(.title)
                                 }
                             }
+
+                            Divider()
+
+                            Toggle(isOn: $voiceGuidanceEnabled) {
+                                HStack {
+                                    Image(systemName: voiceGuidanceEnabled ? "speaker.wave.2.fill" : "speaker.slash.fill")
+                                    Text("Voice Guidance")
+                                }
+                            }
+                            .toggleStyle(SwitchToggleStyle(tint: .blue))
                         }
                         .padding()
                         .background(Color.white)
@@ -140,6 +152,24 @@ struct ContentView: View {
                 }
             }
         }
+        .onChange(of: locationManager.location) { newLocation in
+            // Update navigation with current location
+            if voiceGuidanceEnabled, let location = newLocation {
+                navigationManager.updateLocation(location)
+            }
+        }
+        .onChange(of: routePlanner.currentWaypoints) { newWaypoints in
+            // Start navigation when new waypoints are generated
+            startNavigationIfNeeded()
+        }
+        .onChange(of: voiceGuidanceEnabled) { enabled in
+            // Stop navigation if disabled, start if enabled
+            if !enabled {
+                navigationManager.stopNavigation()
+            } else {
+                startNavigationIfNeeded()
+            }
+        }
         .fullScreenCover(isPresented: $showSubscription) {
             SubscriptionView(isPresented: $showSubscription)
         }
@@ -160,13 +190,21 @@ struct ContentView: View {
         )
     }
 
+    private func startNavigationIfNeeded() {
+        guard voiceGuidanceEnabled, isRunning, !routePlanner.currentWaypoints.isEmpty else {
+            return
+        }
+        navigationManager.startNavigation(waypoints: routePlanner.currentWaypoints)
+    }
+
     private func stopRun() {
         isRunning = false
         locationManager.stopTracking()
         routePlanner.stopPlanning()
+        navigationManager.stopNavigation()
 
         // Show summary or reset
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + AppConstants.UI.resetDelay) {
             locationManager.reset()
             routePlanner.reset()
         }
