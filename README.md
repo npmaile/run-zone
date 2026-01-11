@@ -5,7 +5,8 @@ A native iPhone app that dynamically plans running routes in real-time while you
 ## Features
 
 - **Real-time Location Tracking**: Uses GPS to track your position accurately during your run
-- **Dynamic Route Planning**: Generates a circular route based on your target distance
+- **Smart Route Planning**: Generates routes that follow actual roads and running paths, avoiding buildings and obstacles
+- **Dynamic Routing**: Creates circular routes based on your target distance that loop back to your starting point
 - **Visual Route Display**: Shows your planned route (blue dashed line) and completed path (green solid line) on an interactive map
 - **Customizable Distance**: Select your target distance from 1-50 km
 - **Live Statistics**: View distance covered and remaining distance in real-time
@@ -37,7 +38,8 @@ The app uses a paywall system that presents the subscription offer when you firs
 ### Architecture
 
 - **SwiftUI**: Modern declarative UI framework
-- **MapKit**: Apple's mapping framework for route visualization
+- **MapKit**: Apple's mapping framework for route visualization and directions
+- **MKDirections**: Provides walking routes that follow actual roads and paths
 - **CoreLocation**: High-accuracy GPS tracking
 - **Combine**: Reactive programming for real-time updates
 - **StoreKit 2**: Apple's in-app purchase framework for subscription management
@@ -45,7 +47,7 @@ The app uses a paywall system that presents the subscription offer when you firs
 ### Key Components
 
 - `LocationManager.swift`: Handles GPS tracking and distance calculation
-- `RoutePlanner.swift`: Generates dynamic circular routes
+- `RoutePlanner.swift`: Generates routes using MapKit Directions API that follow roads and paths
 - `MapView.swift`: Renders the map with route overlays
 - `ContentView.swift`: Main UI with controls and statistics
 - `SubscriptionManager.swift`: Manages StoreKit subscriptions and purchases
@@ -54,11 +56,25 @@ The app uses a paywall system that presents the subscription offer when you firs
 
 ### Route Algorithm
 
-The app generates a circular route with the following characteristics:
-- Radius calculated as: `targetDistance / (2 * π)`
-- 12 segments for smooth route visualization
-- ±20% randomization for route variety
+The app uses Apple's MapKit Directions API to generate realistic running routes:
+
+**Smart Routing**:
+- Generates 4 waypoints in a circular pattern around your starting location
+- Requests walking directions between each waypoint using MKDirections
+- Routes follow actual roads, sidewalks, and running paths
+- Automatically avoids buildings and obstacles
 - Loops back to starting point
+
+**Fallback System**:
+- If directions API is unavailable (no network, remote area), uses geometric routing
+- Interpolates between waypoints for smooth route visualization
+- Ensures you always have a route to follow
+
+**Route Characteristics**:
+- Radius calculated as: `targetDistance / (2 * π)`
+- 4 waypoints for better routing accuracy
+- Uses walking transport type for pedestrian-friendly paths
+- Updates every 30 seconds during your run
 
 ### Permissions Required
 
