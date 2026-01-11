@@ -34,8 +34,8 @@ struct MapView: UIViewRepresentable {
         if let location = userLocation {
             let region = MKCoordinateRegion(
                 center: location,
-                latitudinalMeters: 1000,
-                longitudinalMeters: 1000
+                latitudinalMeters: AppConstants.Location.mapZoomMeters,
+                longitudinalMeters: AppConstants.Location.mapZoomMeters
             )
             mapView.setRegion(region, animated: true)
         }
@@ -56,12 +56,12 @@ struct MapView: UIViewRepresentable {
             let renderer = MKPolylineRenderer(overlay: overlay)
 
             if overlay is CompletedPathPolyline {
-                renderer.strokeColor = UIColor.systemGreen.withAlphaComponent(0.8)
-                renderer.lineWidth = 6
+                renderer.strokeColor = UIColor.systemGreen.withAlphaComponent(AppConstants.UI.completedPathAlpha)
+                renderer.lineWidth = AppConstants.UI.completedPathWidth
             } else if overlay is PlannedRoutePolyline {
-                renderer.strokeColor = UIColor.systemBlue.withAlphaComponent(0.6)
-                renderer.lineWidth = 4
-                renderer.lineDashPattern = [10, 5]
+                renderer.strokeColor = UIColor.systemBlue.withAlphaComponent(AppConstants.UI.plannedRouteAlpha)
+                renderer.lineWidth = AppConstants.UI.plannedRouteWidth
+                renderer.lineDashPattern = AppConstants.UI.plannedRouteDashPattern
             }
 
             return renderer

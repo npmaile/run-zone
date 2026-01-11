@@ -7,7 +7,7 @@ class SubscriptionManager: ObservableObject {
     @Published var products: [Product] = []
     @Published var purchaseError: String?
 
-    private let productID = "com.runrouteplanner.monthly_subscription"
+    private let productID = AppConstants.Subscription.productID
     private var updateListenerTask: Task<Void, Error>?
 
     init() {

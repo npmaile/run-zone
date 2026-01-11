@@ -6,7 +6,7 @@ struct SubscriptionView: View {
     @Binding var isPresented: Bool
     @State private var isPurchasing = false
 
-    private let horizontalPadding: CGFloat = 40
+    private let horizontalPadding = AppConstants.UI.horizontalPadding
 
     var body: some View {
         ZStack {

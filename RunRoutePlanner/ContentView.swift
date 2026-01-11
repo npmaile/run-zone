@@ -6,7 +6,7 @@ struct ContentView: View {
     @StateObject private var routePlanner = RoutePlanner()
     @StateObject private var subscriptionManager = SubscriptionManager()
     @State private var isRunning = false
-    @State private var targetDistance: Double = 5.0 // km
+    @State private var targetDistance: Double = AppConstants.Routing.defaultDistance
     @State private var showSubscription = false
 
     var body: some View {
@@ -59,7 +59,7 @@ struct ContentView: View {
                 }
                 .padding()
                 .background(Color.black.opacity(0.7))
-                .cornerRadius(15)
+                .cornerRadius(AppConstants.UI.statsCornerRadius)
                 .padding()
 
                 Spacer()
@@ -73,7 +73,7 @@ struct ContentView: View {
 
                             HStack {
                                 Button(action: {
-                                    targetDistance = max(1, targetDistance - 1)
+                                    targetDistance = max(AppConstants.Routing.minDistance, targetDistance - 1)
                                 }) {
                                     Image(systemName: "minus.circle.fill")
                                         .font(.title)
@@ -85,7 +85,7 @@ struct ContentView: View {
                                     .frame(width: 100)
 
                                 Button(action: {
-                                    targetDistance = min(50, targetDistance + 1)
+                                    targetDistance = min(AppConstants.Routing.maxDistance, targetDistance + 1)
                                 }) {
                                     Image(systemName: "plus.circle.fill")
                                         .font(.title)
@@ -94,7 +94,7 @@ struct ContentView: View {
                         }
                         .padding()
                         .background(Color.white)
-                        .cornerRadius(15)
+                        .cornerRadius(AppConstants.UI.cornerRadius)
                     }
 
                     // Start/Stop Button
@@ -115,7 +115,7 @@ struct ContentView: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(isRunning ? Color.red : Color.green)
-                        .cornerRadius(15)
+                        .cornerRadius(AppConstants.UI.cornerRadius)
                     }
 
                     if isRunning {
@@ -126,7 +126,7 @@ struct ContentView: View {
                 }
                 .padding()
                 .background(Color.white.opacity(0.95))
-                .cornerRadius(20)
+                .cornerRadius(AppConstants.UI.controlsCornerRadius)
                 .padding()
             }
         }
@@ -134,7 +134,7 @@ struct ContentView: View {
             locationManager.requestPermission()
 
             // Show subscription paywall if not subscribed
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + AppConstants.UI.paywallDelay) {
                 if !subscriptionManager.isSubscribed {
                     showSubscription = true
                 }
