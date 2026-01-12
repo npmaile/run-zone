@@ -1,5 +1,14 @@
 import Foundation
+import Foundation
 import SwiftData
+
+// MARK: - Run Stats (Temporary/Session Data)
+
+struct RunStats {
+    let distance: Double
+    let time: TimeInterval
+    let averagePace: Double
+}
 
 // MARK: - Run Model
 

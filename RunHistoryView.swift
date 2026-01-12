@@ -30,15 +30,16 @@ struct RunHistoryView: View {
         VStack(spacing: 20) {
             Image(systemName: "figure.run.circle")
                 .font(.system(size: 80))
-                .foregroundColor(.gray)
+                .foregroundColor(.appTextSecondary)
             
             Text("No Runs Yet")
                 .font(.title)
                 .fontWeight(.bold)
+                .foregroundColor(.appTextPrimary)
             
             Text("Complete your first run to see it here!")
                 .font(.body)
-                .foregroundColor(.secondary)
+                .foregroundColor(.appTextSecondary)
                 .multilineTextAlignment(.center)
         }
         .padding()
@@ -142,14 +143,15 @@ struct StatCard: View {
             Text(value)
                 .font(.title3)
                 .fontWeight(.bold)
+                .foregroundColor(.appTextPrimary)
             
             Text(title)
                 .font(.caption)
-                .foregroundColor(.secondary)
+                .foregroundColor(.appTextSecondary)
         }
         .frame(maxWidth: .infinity)
         .padding()
-        .background(Color.gray.opacity(0.1))
+        .background(Color.appCardBackground)
         .cornerRadius(10)
     }
 }
@@ -161,16 +163,17 @@ struct RunRowView: View {
         HStack {
             Image(systemName: run.workoutType.icon)
                 .font(.title2)
-                .foregroundColor(.blue)
+                .foregroundColor(.appInfo)
                 .frame(width: 40)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(run.routeName ?? run.workoutType.rawValue)
                     .font(.headline)
+                    .foregroundColor(.appTextPrimary)
                 
                 Text(formatDate(run.date))
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.appTextSecondary)
             }
             
             Spacer()
@@ -179,10 +182,11 @@ struct RunRowView: View {
                 Text(String(format: "%.2f km", run.distance / 1000))
                     .font(.subheadline)
                     .fontWeight(.semibold)
+                    .foregroundColor(.appTextPrimary)
                 
                 Text(formatDuration(run.duration))
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.appTextSecondary)
             }
         }
         .padding(.vertical, 4)
@@ -214,15 +218,16 @@ struct RunDetailView: View {
                     VStack(spacing: 8) {
                         Image(systemName: run.workoutType.icon)
                             .font(.system(size: 60))
-                            .foregroundColor(.blue)
+                            .foregroundColor(.appInfo)
                         
                         Text(run.routeName ?? run.workoutType.rawValue)
                             .font(.title)
                             .fontWeight(.bold)
+                            .foregroundColor(.appTextPrimary)
                         
                         Text(formatDate(run.date))
                             .font(.subheadline)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(.appTextSecondary)
                     }
                     .padding()
                     
@@ -248,6 +253,7 @@ struct RunDetailView: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Splits")
                                 .font(.headline)
+                                .foregroundColor(.appTextPrimary)
                                 .padding(.horizontal)
                             
                             ForEach(Array(run.splits.enumerated()), id: \.offset) { index, split in
@@ -262,14 +268,15 @@ struct RunDetailView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Notes")
                                 .font(.headline)
+                                .foregroundColor(.appTextPrimary)
                             
                             Text(notes)
                                 .font(.body)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(.appTextSecondary)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
-                        .background(Color.gray.opacity(0.1))
+                        .background(Color.appCardBackground)
                         .cornerRadius(10)
                         .padding(.horizontal)
                     }
@@ -278,24 +285,29 @@ struct RunDetailView: View {
                     if let weather = run.weatherCondition {
                         HStack {
                             Image(systemName: "cloud.sun")
+                                .foregroundColor(.appTextSecondary)
                             Text(weather)
+                                .foregroundColor(.appTextSecondary)
                             if let temp = run.temperature {
                                 Text("•")
+                                    .foregroundColor(.appTextSecondary)
                                 Text(String(format: "%.1f°C", temp))
+                                    .foregroundColor(.appTextSecondary)
                             }
                         }
                         .font(.caption)
-                        .foregroundColor(.secondary)
                     }
                 }
                 .padding(.bottom)
             }
+            .background(Color.appBackground.ignoresSafeArea())
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {
                         dismiss()
                     }
+                    .foregroundColor(.appInfo)
                 }
             }
         }
@@ -330,19 +342,20 @@ struct DetailStatCard: View {
         VStack(spacing: 8) {
             Image(systemName: icon)
                 .font(.title2)
-                .foregroundColor(.blue)
+                .foregroundColor(.appInfo)
             
             Text(value)
                 .font(.title3)
                 .fontWeight(.bold)
+                .foregroundColor(.appTextPrimary)
             
             Text(title)
                 .font(.caption)
-                .foregroundColor(.secondary)
+                .foregroundColor(.appTextSecondary)
         }
         .frame(maxWidth: .infinity)
         .padding()
-        .background(Color.gray.opacity(0.1))
+        .background(Color.appCardBackground)
         .cornerRadius(10)
     }
 }
@@ -356,24 +369,25 @@ struct SplitRowView: View {
             Text("Split \(splitNumber)")
                 .font(.subheadline)
                 .fontWeight(.medium)
+                .foregroundColor(.appTextPrimary)
                 .frame(width: 80, alignment: .leading)
             
             Spacer()
             
             Text(formatDuration(split.duration))
                 .font(.subheadline)
-                .foregroundColor(.secondary)
+                .foregroundColor(.appTextSecondary)
             
             Spacer()
             
             Text(String(format: "%.1f min/km", split.pace))
                 .font(.subheadline)
                 .fontWeight(.semibold)
-                .foregroundColor(.blue)
+                .foregroundColor(.appInfo)
         }
         .padding(.horizontal)
         .padding(.vertical, 8)
-        .background(Color.gray.opacity(0.05))
+        .background(Color.appCardBackground)
         .cornerRadius(8)
         .padding(.horizontal)
     }

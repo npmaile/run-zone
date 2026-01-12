@@ -1,4 +1,6 @@
 import SwiftUI
+import SwiftUI
+import UIKit
 
 // MARK: - Button Styles
 
@@ -39,7 +41,7 @@ struct DistancePresetButton: View {
 // MARK: - Run Summary View
 
 struct RunSummaryView: View {
-    let stats: ContentView.RunStats
+    let stats: RunStats
     let settings: SettingsManager
     let onDismiss: () -> Void
     

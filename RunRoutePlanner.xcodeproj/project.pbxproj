@@ -10,6 +10,7 @@
 		4B87A0EB2F1430060000B221 /* PAYMENTS_REMOVED.md in Resources */ = {isa = PBXBuildFile; fileRef = 4B87A0EA2F1430060000B221 /* PAYMENTS_REMOVED.md */; };
 		4B87A0ED2F1430D40000B221 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B87A0EC2F1430D40000B221 /* SettingsView.swift */; };
 		4B87A0EF2F1431210000B221 /* SETTINGS_FEATURE.md in Resources */ = {isa = PBXBuildFile; fileRef = 4B87A0EE2F1431210000B221 /* SETTINGS_FEATURE.md */; };
+		4BF03F452F14795300D22E63 /* DocumentationQUICK_START.md in Resources */ = {isa = PBXBuildFile; fileRef = 4BF03F442F14795300D22E63 /* DocumentationQUICK_START.md */; };
 		AA0000000000000000000001 /* RunRoutePlannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000001 /* RunRoutePlannerApp.swift */; };
 		AA0000000000000000000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000002 /* ContentView.swift */; };
 		AA0000000000000000000003 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000003 /* LocationManager.swift */; };
@@ -32,6 +33,15 @@
 		4B87A0F02F1432210000B221 /* USABILITY_IMPROVEMENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = USABILITY_IMPROVEMENTS.md; sourceTree = "<group>"; };
 		4B87A0F12F14326C0000B221 /* UsabilityComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsabilityComponents.swift; sourceTree = "<group>"; };
 		4B87A0F22F1432C40000B221 /* IMPROVEMENTS_COMPLETE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = IMPROVEMENTS_COMPLETE.md; sourceTree = "<group>"; };
+		4B87A0F32F14340D0000B221 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		4B87A0F42F1434230000B221 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		4B87A0F52F1434380000B221 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		4B87A0F62F1434490000B221 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
+		4B87A0F72F14345F0000B221 /* IntervalTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalTimer.swift; sourceTree = "<group>"; };
+		4B87A0F82F1434820000B221 /* RunHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunHistoryView.swift; sourceTree = "<group>"; };
+		4B87A0F92F1434C60000B221 /* ALL_FEATURES_IMPLEMENTED.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ALL_FEATURES_IMPLEMENTED.md; sourceTree = "<group>"; };
+		4B87A0FA2F1435520000B221 /* BUILD_ERRORS_FIXED.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = BUILD_ERRORS_FIXED.md; sourceTree = "<group>"; };
+		4BF03F442F14795300D22E63 /* DocumentationQUICK_START.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = DocumentationQUICK_START.md; sourceTree = "<group>"; };
 		BB0000000000000000000001 /* RunRoutePlannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunRoutePlannerApp.swift; sourceTree = "<group>"; };
 		BB0000000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BB0000000000000000000003 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -68,6 +78,14 @@
 				4B87A0F02F1432210000B221 /* USABILITY_IMPROVEMENTS.md */,
 				4B87A0F12F14326C0000B221 /* UsabilityComponents.swift */,
 				4B87A0F22F1432C40000B221 /* IMPROVEMENTS_COMPLETE.md */,
+				4B87A0F32F14340D0000B221 /* Models.swift */,
+				4B87A0F42F1434230000B221 /* HealthKitManager.swift */,
+				4B87A0F52F1434380000B221 /* AudioManager.swift */,
+				4B87A0F62F1434490000B221 /* WeatherManager.swift */,
+				4B87A0F72F14345F0000B221 /* IntervalTimer.swift */,
+				4B87A0F82F1434820000B221 /* RunHistoryView.swift */,
+				4B87A0F92F1434C60000B221 /* ALL_FEATURES_IMPLEMENTED.md */,
+				4B87A0FA2F1435520000B221 /* BUILD_ERRORS_FIXED.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -89,6 +107,7 @@
 				4B87A0EA2F1430060000B221 /* PAYMENTS_REMOVED.md */,
 				4B87A0EC2F1430D40000B221 /* SettingsView.swift */,
 				4B87A0EE2F1431210000B221 /* SETTINGS_FEATURE.md */,
+				4BF03F442F14795300D22E63 /* DocumentationQUICK_START.md */,
 			);
 			path = RunRoutePlanner;
 			sourceTree = "<group>";
@@ -162,6 +181,7 @@
 				4B87A0EB2F1430060000B221 /* PAYMENTS_REMOVED.md in Resources */,
 				AA0000000000000000000006 /* Assets.xcassets in Resources */,
 				4B87A0EF2F1431210000B221 /* SETTINGS_FEATURE.md in Resources */,
+				4BF03F452F14795300D22E63 /* DocumentationQUICK_START.md in Resources */,
 				AA0000000000000000000009 /* Configuration.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,6 +338,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = 2845TX4G76;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = RunRoutePlanner/Info.plist;
@@ -347,6 +368,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = 2845TX4G76;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = RunRoutePlanner/Info.plist;

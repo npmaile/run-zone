@@ -5,21 +5,123 @@
       location = "self:">
    </FileRef>
    <FileRef
-      location = "group:APP_OVERVIEW.md">
+      location = "group:Models.swift">
    </FileRef>
    <FileRef
-      location = "group:MERGE_COMPLETE.md">
+      location = "group:ColorScheme.swift">
    </FileRef>
    <FileRef
-      location = "group:BUILD_AND_RUN.md">
+      location = "group:DARK_MODE_IMPLEMENTATION.md">
    </FileRef>
    <FileRef
-      location = "group:PROJECT_STRUCTURE.md">
+      location = "group:AppColors.swift">
    </FileRef>
    <FileRef
-      location = "group:FINAL_SUMMARY.md">
+      location = "group:DARK_MODE_BUILD_FIXES.md">
    </FileRef>
    <FileRef
-      location = "group:VERIFICATION.md">
+      location = "group:ROUTE_PREVIEW_FEATURE.md">
+   </FileRef>
+   <FileRef
+      location = "group:ROUTE_PLANNING_IMPROVEMENTS.md">
+   </FileRef>
+   <FileRef
+      location = "group:DIRECTIONAL_ARROWS_FEATURE.md">
+   </FileRef>
+   <FileRef
+      location = "group:RouteDetailsView.swift">
+   </FileRef>
+   <FileRef
+      location = "group:ROUTE_DETAILS_FEATURE.md">
+   </FileRef>
+   <FileRef
+      location = "group:RouteModels.swift">
+   </FileRef>
+   <FileRef
+      location = "group:RouteDetailsView 2.swift">
+   </FileRef>
+   <FileRef
+      location = "group:APP_ICON_GUIDE.md">
+   </FileRef>
+   <FileRef
+      location = "group:AppIconGenerator.swift">
+   </FileRef>
+   <FileRef
+      location = "group:ICON_QUICK_START.md">
+   </FileRef>
+   <FileRef
+      location = "group:RENAME_TO_RUNZONE.md">
+   </FileRef>
+   <FileRef
+      location = "group:RUNZONE_BRANDING.md">
+   </FileRef>
+   <FileRef
+      location = "group:RouteEditorView.swift">
+   </FileRef>
+   <FileRef
+      location = "group:ROUTE_EDITOR_FEATURE.md">
+   </FileRef>
+   <FileRef
+      location = "group:DocumentationPROJECT_ARCHITECTURE.md">
+   </FileRef>
+   <FileRef
+      location = "group:DocumentationAI_AGENT_GUIDE.md">
+   </FileRef>
+   <FileRef
+      location = "group:DocumentationREADME.md">
+   </FileRef>
+   <FileRef
+      location = "group:DocumentationCODEBASE_SUMMARY.md">
+   </FileRef>
+   <FileRef
+      location = "group:README.md">
+   </FileRef>
+   <FileRef
+      location = "group:refactor.sh">
+   </FileRef>
+   <FileRef
+      location = "group:DocumentationREFACTORING_GUIDE.md">
+   </FileRef>
+   <FileRef
+      location = "group:REFACTORING_INSTRUCTIONS.md">
+   </FileRef>
+   <FileRef
+      location = "group:CLEANUP_PLAN.md">
+   </FileRef>
+   <FileRef
+      location = "group:cleanup_docs.sh">
+   </FileRef>
+   <FileRef
+      location = "group:ROUTE_PREVIEW_IMPROVEMENTS.md">
+   </FileRef>
+   <FileRef
+      location = "group:ROUTE_PREVIEW_UI_GUIDE.md">
+   </FileRef>
+   <FileRef
+      location = "group:ROUTE_PREVIEW_CHANGES.md">
+   </FileRef>
+   <FileRef
+      location = "group:OPTIMIZATION_MODE_FEATURE.md">
+   </FileRef>
+   <FileRef
+      location = "group:OPTIMIZATION_MODE_GUIDE.md">
+   </FileRef>
+   <FileRef
+      location = "group:OPTIMIZATION_MODE_SUMMARY.md">
+   </FileRef>
+   <FileRef
+      location = "group:OPTIMIZATION_MODE_VISUAL_GUIDE.md">
+   </FileRef>
+   <FileRef
+      location = "group:OPTIMIZATION_MODE_BUGFIXES.md">
+   </FileRef>
+   <FileRef
+      location = "group:SEGMENTED_PICKER_FIX.md">
+   </FileRef>
+   <FileRef
+      location = "group:OPTIMIZATION_LOGIC_FIX.md">
+   </FileRef>
+   <FileRef
+      location = "group:RouteOptionsSheet.swift">
    </FileRef>
 </Workspace>
