@@ -11,6 +11,7 @@
 		4B87A0ED2F1430D40000B221 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B87A0EC2F1430D40000B221 /* SettingsView.swift */; };
 		4B87A0EF2F1431210000B221 /* SETTINGS_FEATURE.md in Resources */ = {isa = PBXBuildFile; fileRef = 4B87A0EE2F1431210000B221 /* SETTINGS_FEATURE.md */; };
 		4BF03F452F14795300D22E63 /* DocumentationQUICK_START.md in Resources */ = {isa = PBXBuildFile; fileRef = 4BF03F442F14795300D22E63 /* DocumentationQUICK_START.md */; };
+		4BF03F472F14844500D22E63 /* ADVANCED_ROUTE_PLANNING.md in Resources */ = {isa = PBXBuildFile; fileRef = 4BF03F462F14844500D22E63 /* ADVANCED_ROUTE_PLANNING.md */; };
 		AA0000000000000000000001 /* RunRoutePlannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000001 /* RunRoutePlannerApp.swift */; };
 		AA0000000000000000000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000002 /* ContentView.swift */; };
 		AA0000000000000000000003 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000000000000000000003 /* LocationManager.swift */; };
@@ -42,6 +43,7 @@
 		4B87A0F92F1434C60000B221 /* ALL_FEATURES_IMPLEMENTED.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ALL_FEATURES_IMPLEMENTED.md; sourceTree = "<group>"; };
 		4B87A0FA2F1435520000B221 /* BUILD_ERRORS_FIXED.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = BUILD_ERRORS_FIXED.md; sourceTree = "<group>"; };
 		4BF03F442F14795300D22E63 /* DocumentationQUICK_START.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = DocumentationQUICK_START.md; sourceTree = "<group>"; };
+		4BF03F462F14844500D22E63 /* ADVANCED_ROUTE_PLANNING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ADVANCED_ROUTE_PLANNING.md; sourceTree = "<group>"; };
 		BB0000000000000000000001 /* RunRoutePlannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunRoutePlannerApp.swift; sourceTree = "<group>"; };
 		BB0000000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BB0000000000000000000003 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				4B87A0EC2F1430D40000B221 /* SettingsView.swift */,
 				4B87A0EE2F1431210000B221 /* SETTINGS_FEATURE.md */,
 				4BF03F442F14795300D22E63 /* DocumentationQUICK_START.md */,
+				4BF03F462F14844500D22E63 /* ADVANCED_ROUTE_PLANNING.md */,
 			);
 			path = RunRoutePlanner;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B87A0EB2F1430060000B221 /* PAYMENTS_REMOVED.md in Resources */,
+				4BF03F472F14844500D22E63 /* ADVANCED_ROUTE_PLANNING.md in Resources */,
 				AA0000000000000000000006 /* Assets.xcassets in Resources */,
 				4B87A0EF2F1431210000B221 /* SETTINGS_FEATURE.md in Resources */,
 				4BF03F452F14795300D22E63 /* DocumentationQUICK_START.md in Resources */,
