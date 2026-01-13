@@ -50,6 +50,75 @@ enum RouteStrategy: String, CaseIterable, Identifiable {
     }
 }
 
+// MARK: - Landmark Preferences
+
+enum LandmarkType: String, CaseIterable, Identifiable {
+    case parks = "Parks"
+    case cafes = "Cafés"
+    case water = "Water"
+    case viewpoints = "Viewpoints"
+    case trails = "Trails"
+    case landmarks = "Landmarks"
+    
+    var id: String { rawValue }
+    
+    var icon: String {
+        switch self {
+        case .parks: return "tree.fill"
+        case .cafes: return "cup.and.saucer.fill"
+        case .water: return "drop.fill"
+        case .viewpoints: return "mountain.2.fill"
+        case .trails: return "figure.hiking"
+        case .landmarks: return "building.2.fill"
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .parks: return "Pass by parks and green spaces"
+        case .cafes: return "Route near coffee shops"
+        case .water: return "Follow rivers, lakes, waterfront"
+        case .viewpoints: return "Include scenic overlooks"
+        case .trails: return "Prefer walking/running trails"
+        case .landmarks: return "Pass notable landmarks"
+        }
+    }
+    
+    var searchCategories: [MKPointOfInterestCategory] {
+        switch self {
+        case .parks:
+            return [.park, .nationalPark]
+        case .cafes:
+            return [.cafe, .bakery]
+        case .water:
+            return [.beach, .marina]
+        case .viewpoints:
+            return [.park, .nationalPark]
+        case .trails:
+            return [.park, .nationalPark]
+        case .landmarks:
+            return [.museum, .library, .theater, .publicTransport]
+        }
+    }
+}
+
+class LandmarkPreferences: ObservableObject {
+    @Published var enabledLandmarks: Set<LandmarkType> = []
+    @Published var landmarkInfluence: Double = 0.3 // How much landmarks affect routing (0-1)
+    
+    func isEnabled(_ type: LandmarkType) -> Bool {
+        enabledLandmarks.contains(type)
+    }
+    
+    func toggle(_ type: LandmarkType) {
+        if enabledLandmarks.contains(type) {
+            enabledLandmarks.remove(type)
+        } else {
+            enabledLandmarks.insert(type)
+        }
+    }
+}
+
 // MARK: - Route Option
 
 struct RouteOption: Identifiable, Hashable {
@@ -128,6 +197,7 @@ class RoutePlanner: ObservableObject {
     @Published var routeOptions: [RouteOption] = []
     @Published var selectedRouteOption: RouteOption?
     @Published var isGeneratingOptions = false
+    @Published var landmarkPreferences = LandmarkPreferences()
 
     // MARK: - Private Properties
     private var startLocation: CLLocationCoordinate2D?
@@ -135,6 +205,7 @@ class RoutePlanner: ObservableObject {
     private var timer: Timer?
     private var routeTask: Task<Void, Never>?
     private var currentRouteSteps: [MKRoute.Step] = []
+    private var nearbyLandmarks: [MKMapItem] = []
 
     // MARK: - Public Methods
     
